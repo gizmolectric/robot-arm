@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Arm Control Panel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #111;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .slider-container {
+            margin: 25px auto;
+            width: 800px;
+            max-width: 90%;
+            background: #222;
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        input[type=range] {
+            width: 100%;
+            height: 40px;
+            -webkit-appearance: none;
+            background: transparent;
+        }
+
+        /* Track */
+        input[type=range]::-webkit-slider-runnable-track {
+            height: 12px;
+            background: #444;
+            border-radius: 10px;
+        }
+
+        /* Thumb (Chrome, Safari, Edge, Opera) */
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 32px;
+            width: 32px;
+            border-radius: 50%;
+            background: #5827eb;
+            border: 4px solid #2d2d2d; /* ★ added border */
+            cursor: pointer;
+            margin-top: -10px;
+        }
+
+        /* Thumb for Firefox */
+        input[type=range]::-moz-range-thumb {
+            height: 32px;
+            width: 32px;
+            background: #00ff88;
+            border: 4px solid #2d2d2d; /* ★ added border */
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        /* Firefox track */
+        input[type=range]::-moz-range-track {
+            height: 12px;
+            background: #444;
+            border-radius: 10px;
+        }
+
+        h2 {
+            margin-bottom: 5px;
+        }
+
+        /* Mobile optimization */
+        @media (max-width: 600px) {
+            .slider-container {
+                width: 100%;
+                padding: 18px;
+            }
+
+            /* Bigger thumbs on mobile */
+            input[type=range]::-webkit-slider-thumb {
+                height: 38px;
+                width: 38px;
+                border-width: 5px;
+                margin-top: -13px;
+            }
+
+            input[type=range]::-moz-range-thumb {
+                height: 38px;
+                width: 38px;
+                border-width: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Mechanical Arm Controller</h1>
+    <p>Move the sliders to control the servos in real time.</p>
+
+    <!-- Servo 0 -->
+    <div class="slider-container">
+        <h2>Servo 1</h2>
+        <input type="range" min="0" max="180" value="90"
+            oninput="updateServo(0, this.value)">
+    </div>
+
+    <!-- Servo 1 & 2 Combo -->
+    <div class="slider-container">
+        <h2>Servos 2 & 3</h2>
+        <input type="range" min="0" max="180" value="90"
+            oninput="updateDual(this.value)">
+    </div>
+
+    <!-- Servo 3 -->
+    <div class="slider-container">
+        <h2>Servo 4</h2>
+        <input type="range" min="0" max="180" value="90"
+            oninput="updateServo(3, this.value)">
+    </div>
+
+    <!-- Servo 4 -->
+    <div class="slider-container">
+        <h2>Servo 5</h2>
+        <input type="range" min="0" max="180" value="90"
+            oninput="updateServo(4, this.value)">
+    </div>
+
+    <!-- Servo 5 -->
+    <div class="slider-container">
+        <h2>Servo 6</h2>
+        <input type="range" min="0" max="180" value="90"
+            oninput="updateServo(5, this.value)">
+    </div>
+
+    <!-- Servo 6 -->
+    <div class="slider-container">
+        <h2>Servo 7</h2>
+        <input type="range" min="0" max="180" value="90"
+            oninput="updateServo(6, this.value)">
+    </div>
+
+    <!-- Servo 7 -->
+    <div class="slider-container">
+        <h2>Servo 8</h2>
+        <input type="range" min="0" max="180" value="90"
+            oninput="updateServo(7, this.value)">
+    </div>
+
+    <script>
+        const TOKEN = "07zump6GACyF0v1WmtULAvfvTUuDhG8w";
+
+        function updateServo(servo, value) {
+            const url = `https://blynk.cloud/external/api/update?token=${TOKEN}&V${servo}=${value}`;
+            fetch(url).catch(() => {});
+        }
+
+        // Dual servo control: Servo 1 = value, Servo 2 = 180 - value
+        function updateDual(value) {
+            let v1 = Number(value);
+            let v2 = 180 - v1;
+
+            fetch(`https://blynk.cloud/external/api/update?token=${TOKEN}&V1=${v1}`)
+                .catch(() => {});
+
+            fetch(`https://blynk.cloud/external/api/update?token=${TOKEN}&V2=${v2}`)
+                .catch(() => {});
+
+            console.log(`Linked: Servo1=${v1}, Servo2=${v2}`);
+        }
+    </script>
+
+</body>
+</html>
