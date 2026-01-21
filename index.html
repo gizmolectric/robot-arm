@@ -51,23 +51,23 @@
 
     <!-- Servo 0 -->
     <div class="slider-container">
-        <h2>Base</h2>
+        <h2>[CCW] Base [CW]</h2>
         <input type="range" min="0" max="180" value="90"
             oninput="updateServo(0, this.value)">
     </div>
 
     <!-- Servo 3 -->
     <div class="slider-container">
-        <h2>Shoulder</h2>
+        <h2>[Down] Shoulder [Up]</h2>
         <input type="range" min="0" max="180" value="90"
             oninput="updateServo(3, this.value)">
     </div>
 
     <!-- Servo 4 -->
     <div class="slider-container">
-        <h2>Elbow</h2>
+        <h2>[Down] Elbow [Up]</h2>
         <input type="range" min="0" max="180" value="90"
-            oninput="updateServo(4, this.value)">
+            oninput="updateServo(4, 180 - this.value)">
     </div>
 
     <!-- Servo 5 -->
@@ -87,9 +87,9 @@
 
         <!-- Servo 1 & 2 Combo -->
     <div class="slider-container">
-        <h2>Grab / Let Go</h2>
+        <h2>[Grab] Hand [Let Go]</h2>
         <input type="range" min="0" max="180" value="90"
-            oninput="updateDual(this.value)">
+            oninput="updateDual(180 - this.value)">
     </div>
 
 
