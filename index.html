@@ -33,7 +33,6 @@
             margin-bottom: 1px;
         }
 
-        /* Mobile optimization */
         @media (max-width: 600px) {
             .slider-container {
                 width: 100%;
@@ -49,28 +48,24 @@
 
     <h1>Mechanical Arm Controller</h1>
 
-    <!-- Servo 0 -->
     <div class="slider-container">
         <h2>[CCW] Base [CW]</h2>
         <input type="range" min="0" max="180" value="90"
             oninput="updateServo(0, this.value)">
     </div>
 
-    <!-- Servo 3 -->
     <div class="slider-container">
         <h2>[Down] Shoulder [Up]</h2>
         <input type="range" min="0" max="180" value="90"
             oninput="updateServo(3, this.value)">
     </div>
 
-    <!-- Servo 4 -->
     <div class="slider-container">
         <h2>[Down] Elbow [Up]</h2>
         <input type="range" min="0" max="180" value="90"
             oninput="updateServo(4, 180 - this.value)">
     </div>
 
-    <!-- Servo 5 -->
     <div class="slider-container">
         <h2>Wrist Left-Right
         </h2>
@@ -78,14 +73,12 @@
             oninput="updateServo(5, this.value)">
     </div>
 
-    <!-- Servo 6 -->
     <div class="slider-container">
         <h2>Wrist Rotation</h2>
         <input type="range" min="0" max="180" value="90"
             oninput="updateServo(6, this.value)">
     </div>
 
-        <!-- Servo 1 & 2 Combo -->
     <div class="slider-container">
         <h2>[Grab] Hand [Let Go]</h2>
         <input type="range" min="0" max="180" value="90"
@@ -101,16 +94,13 @@
             fetch(url).catch(() => {});
         }
 
-        // Dual servo control: Servo 1 = value, Servo 2 = 180 - value
         function updateDual(value) {
             let v1 = Number(value);
             let v2 = 180 - v1;
 
-            // Send Servo 1
             fetch(`https://blynk.cloud/external/api/update?token=${TOKEN}&V1=${v1}`)
                 .catch(() => {});
 
-            // Send Servo 2 (inverted)
             fetch(`https://blynk.cloud/external/api/update?token=${TOKEN}&V2=${v2}`)
                 .catch(() => {});
 
@@ -119,5 +109,6 @@
     </script>
 </body>
 </html>
+
 
 
